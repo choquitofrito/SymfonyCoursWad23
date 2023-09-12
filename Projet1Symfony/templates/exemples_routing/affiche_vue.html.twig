@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+
+{# body de la vue #}
+{% block body %}
+Je suis la vue d'afficheVue
+<br>On écrase le contenu du body de base
+{% endblock %}
+
+
+
+{% block javascripts %}
+<script>
+alert ("je suis la vue afficheVue");
+</script>
+{% endblock %}

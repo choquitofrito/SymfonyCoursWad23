@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	{% set tabNoms = ["Pepi","Nadia","Hsin I"] %}
+
+	{% for nom in tabNoms %}
+		<br>Bienvenue
+		{{ nom }}
+	{% endfor %}
+
+{% endblock %}

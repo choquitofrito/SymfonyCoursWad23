@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+Le prix TVAC pour {{ prix }} euros est de 
+{{ prix * (1 + tauxTva / 100)  }} 
+
+(Taux TVA: {{ tauxTva}} % ))
+
+{% endblock %}

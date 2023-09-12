@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+{{ parent() }}
+<br>
+Je suis la vue d'afficheVue 2!!
+<br>
+Je me rajoute au contenu de base
+{% endblock %}
+
+
+
+{% block javascripts %}
+<script>
+alert ("je suis la vue afficheVue 2");
+</script>
+{% endblock %}
