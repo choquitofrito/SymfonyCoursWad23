@@ -24,13 +24,13 @@ Créer un controller avec l'assistant
 
 2. changer les paramètres de la BD (.env dans la racine)
 
-    DATABASE_URL="mysql://root:@127.0.0.1:3306/bibliotheque?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
+        DATABASE_URL="mysql://root:@127.0.0.1:3306/bibliotheque?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
 
 3. créer la BD (allumer le serveur MySQL d'abord!)
 
-    symfony console doctrine:database:create
+        symfony console doctrine:database:create
 
-    symfony console d:d:c
+        symfony console d:d:c
 
     (Pour effacer la BD, utilisez *drop* au lieu de *create*)
 
