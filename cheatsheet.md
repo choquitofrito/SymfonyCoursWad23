@@ -48,8 +48,21 @@ Créer et puis lancer une migration:
     symfony console doctrine:migrations:migrate
 
 
+# Fixtures
 
+Installer le module
 
+    symfony composer req --dev orm-fixtures
 
+Créer un fichier de fixure
 
+    symfony console make:fixture
+
+Lancer les fixtures
+
+    symfony console doctrine:fixtures:load
+
+Rajouter Faker au projet
+
+    composer require fakerphp/faker
 
