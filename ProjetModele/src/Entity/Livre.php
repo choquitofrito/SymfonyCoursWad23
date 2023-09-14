@@ -43,11 +43,22 @@ class Livre
     #[ORM\ManyToMany(targetEntity: Auteur::class, mappedBy: 'livres')]
     private Collection $auteurs;
 
-    public function __construct()
-    {
-        $this->exemplaires = new ArrayCollection();
-        $this->auteurs = new ArrayCollection();
+
+    public function hydrate (array $vals){
+        foreach ($vals as $cle => $valeur){
+            if (isset ($vals[$cle])){
+                $nomSet = "set" . ucfirst($cle);
+                $this->$nomSet ($valeur);
+            }
+        }
     }
+    public function __construct(array $init =[])
+    {
+        $this->hydrate($init);
+        $this->auteurs = new ArrayCollection();
+        $this->exemplaires = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
