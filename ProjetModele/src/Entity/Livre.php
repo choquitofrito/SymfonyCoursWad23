@@ -40,9 +40,13 @@ class Livre
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateEdition = null;
 
+    #[ORM\ManyToMany(targetEntity: Auteur::class, mappedBy: 'livres')]
+    private Collection $auteurs;
+
     public function __construct()
     {
         $this->exemplaires = new ArrayCollection();
+        $this->auteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +164,33 @@ class Livre
     public function setDateEdition(?\DateTimeInterface $dateEdition): static
     {
         $this->dateEdition = $dateEdition;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Auteur>
+     */
+    public function getAuteurs(): Collection
+    {
+        return $this->auteurs;
+    }
+
+    public function addAuteur(Auteur $auteur): static
+    {
+        if (!$this->auteurs->contains($auteur)) {
+            $this->auteurs->add($auteur);
+            $auteur->addLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuteur(Auteur $auteur): static
+    {
+        if ($this->auteurs->removeElement($auteur)) {
+            $auteur->removeLivre($this);
+        }
 
         return $this;
     }
