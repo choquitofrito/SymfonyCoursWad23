@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<form action="{{ path('form_independant_traitement') }}" method="POST">
+    Nom<input name="nom" type="text"><br>
+    Age<input name="age" type="number">
+    <input type="submit" value="Envoyer"> 
+</form>
+{% endblock %}
