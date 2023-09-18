@@ -66,3 +66,8 @@ Rajouter Faker au projet
 
     composer require fakerphp/faker
 
+# Formulaires
+
+Création d'un formulaire associé à une entité
+
+    symfony console make:form
