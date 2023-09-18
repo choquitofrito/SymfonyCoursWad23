@@ -70,4 +70,10 @@ Rajouter Faker au projet
 
 Création d'un formulaire associé à une entité
 
+1. Lancer la création du form
+   
     symfony console make:form
+
+2. Editer le formulaire (ex: enlever un champ de rélation)
+
+3. Créer une action dans le controller pour afficher et/ou traiter le formulaire
