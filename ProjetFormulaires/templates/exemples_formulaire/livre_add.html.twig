@@ -2,17 +2,9 @@
 
 {% block body %}
 
-
-
 {{ form_start (formLivre) }}
-{# generer le contenu du form  #}
 {{ form_widget (formLivre) }} 
 <input type="submit" value="Enregistrer">
 {{ form_end (formLivre) }}
-
-{# {{ form_start (formLivre) }}
-    {{ form_row(formLivre.isbn )}}
-{{ form_end (formLivre, { render_rest:false }) }} #}
-
 
 {% endblock %}

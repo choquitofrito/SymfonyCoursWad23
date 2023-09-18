@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+{% for livre in arrayObjetsLivres %}
+    <h3>{{ livre.titre }}</h3>
+    <ul>
+        <li>ISBN: {{ livre.isbn }}</li>
+        <li>Nombre de pages: {{ livre.nombrePages }}</li>
+        <li>Prix: {{ livre.prix }}</li>
+        <li>Description: {{ livre.description }}</li>
+    </ul>
+{% endfor %}
+
+
+
+{% endblock %}
