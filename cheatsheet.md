@@ -58,7 +58,7 @@ Créer un fichier de fixure
 
     symfony console make:fixture
 
-Lancer les fixtures
+Lancer les fixtures (si les Fixtures utilisent Faker, il faut l'inclure avec *composer require fakerphp/faker*)
 
     symfony console doctrine:fixtures:load
 
