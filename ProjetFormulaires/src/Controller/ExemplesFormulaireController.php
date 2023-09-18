@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Form\LivreType;
+use App\Form\AuteurType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,5 +42,15 @@ class ExemplesFormulaireController extends AbstractController {
         $vars = ['formLivre' => $formLivre];
 
         return $this->render ("exemples_formulaire/affiche_form_livre.html.twig", $vars);
+    }
+
+    #[Route('/affiche/form/auteur')]
+    public function afficherFormAuteur (){
+        $formAuteur = $this->createForm(AuteurType::class);
+
+        $vars = ['formAuteur' => $formAuteur];
+
+        return $this->render ("exemples_formulaire/affiche_form_auteur.html.twig", $vars);
+
     }
 }
