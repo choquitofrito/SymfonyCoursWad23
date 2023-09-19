@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Livre;
 use App\Form\LivreType;
 use App\Form\AuteurType;
+use App\Form\LivreAuteurType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,16 +62,18 @@ class ExemplesFormulaireController extends AbstractController
         return $this->render("exemples_formulaire/affiche_form_auteur.html.twig", $vars);
     }
 
-
+    // afficher et traiter le formulaire pour insérer un Livre
     #[Route('/livre/add')]
     public function livreAdd(Request $req, ManagerRegistry $doctrine)
     {
-
-        // créer un objet formulaire
+        // créer une entité vide
         $livre = new Livre();
-
+        
+        // créer un objet formulaire et associer l'entité à cet bojet formulaire
         $formLivre = $this->createForm(LivreType::class, $livre);
 
+        // traiter la requête. Si on a fait un submit, l'entité $livre sera remplie
+        // avec les données du form
         $formLivre->handleRequest($req);
 
         // on vient d'un submit
@@ -109,4 +112,63 @@ class ExemplesFormulaireController extends AbstractController
 
         return $this->render ('exemples_formulaire/livre_all.html.twig', $vars);
     }
+
+    // #[Route('/livre/fiche/{id}', name:'livre_fiche')]
+    // public function livreFiche (Request $req, ManagerRegistry $doctrine){
+    //     $id = $req->get('id');
+
+    //     $em = $doctrine->getManager();
+    //     $rep = $em->getRepository(Livre::class);
+        
+    //     $livre = $rep->find($id);
+    //     dd($livre);
+
+    // }
+
+    // Grace à ParamConverter
+    
+    // afficher détail d'un Livre
+    #[Route('/livre/fiche/{id}', name:'livre_fiche')]
+    public function livreFiche (Livre $livre){
+        
+        $vars = ['livre' => $livre];
+        return $this->render ('exemples_formulaire/livre_fiche.html.twig', $vars);
+    }
+
+    // delete Livre
+    #[Route('/livre/delete/{id}', name:'livre_delete')]
+    public function livreDelete (Livre $livre, ManagerRegistry $doctrine){
+        
+        $em = $doctrine->getManager();
+        
+        $em->remove($livre);
+        $em->flush();
+
+        return $this->redirectToRoute ('livre_all');
+    }
+
+
+    #[Route('/livre/update/{id}', name:'livre_update')]
+    public function livreUpdate(Livre $livre, Request $req, ManagerRegistry $doctrine)
+    {
+
+        // créer un objet formulaire
+        // $livre = new Livre(); // plus besoin, on reçoit le id pour le Livre et ParamConverter crée le Livre
+        
+        // cette fois le form va être rempli
+        $formLivre = $this->createForm(LivreType::class, $livre);
+        $formLivre->handleRequest($req);
+
+        if ($formLivre->isSubmitted()) {
+            $em = $doctrine->getManager();
+            // $em->persist($livre); // pas besoin si on prend l'objet de la BD
+            $em->flush();
+            return $this->redirectToRoute("livre_all");
+
+        }
+        $vars = ['formLivre' => $formLivre];
+        return $this->render("exemples_formulaire/livre_update.html.twig", $vars);
+    }
+
+
 }

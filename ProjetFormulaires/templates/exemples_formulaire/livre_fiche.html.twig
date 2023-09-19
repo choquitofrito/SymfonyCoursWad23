@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<ul>
+<li>{{ livre.titre | capitalize}}</li>
+<li>{{ livre.prix }}</li>
+<li>{{ livre.description }}</li>
+<li>{{ livre.nombrePages }}</li>
+{{ livre.datePublication | date("Y-m-d") }}
+</ul>
+
+
+{% endblock %}

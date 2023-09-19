@@ -26,7 +26,6 @@ class AuteurFixtures extends Fixture
             );
             $manager->persist($auteur);
         }
-
         $manager->flush();
     }
 }
