@@ -1,7 +1,7 @@
-del migrations\*
-symfony console doctrine:database:drop --force
-symfony console doctrine:database:create
-symfony console make:migration
-symfony console doctrine:migrations:migrate
-symfony console doctrine:fixtures:load
+echo yes | del migrations\* 
+symfony console doctrine:database:drop --force --no-interaction
+symfony console doctrine:database:create --no-interaction
+symfony console make:migration --no-interaction
+symfony console doctrine:migrations:migrate --no-interaction
+symfony console doctrine:fixtures:load --no-interaction
 
