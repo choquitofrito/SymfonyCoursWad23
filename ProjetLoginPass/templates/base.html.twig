@@ -11,6 +11,8 @@
         {% endblock %}
     </head>
     <body>
+        {# Dans une nav on mettra le lien vers le logout: #}
+        <a href="{{ path ("app_logout") }}">Logout</a>
         {% block body %}{% endblock %}
     </body>
 </html>
