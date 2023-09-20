@@ -21,9 +21,8 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-
+        // users ROLE_USER
         for ($i = 0; $i < 5; $i++) {
-
             $user = new User([
                 'email' => 'user' .  $i . '@gmail.com',
                 'roles' => [],
@@ -31,17 +30,33 @@ class UserFixtures extends Fixture
             ]);
             // fixer un password sans hasher
             $passwordSansHash = "monpassword" . $i;
-
             // obtenir le password hashé
             $passwordHash = $this->passwordHasher->hashPassword(
-                $user, $passwordSansHash
+                $user,
+                $passwordSansHash
             );
-
             // incruster dans l'entité le password hashé
             $user->setPassword($passwordHash);
-            
-            dd ($user);
+            $manager->persist($user);
+        }
+        $manager->flush();
 
+        // users ROLE_CHEF et ROLE_ADMIN
+        for ($i = 0; $i < 5; $i++) {
+            $user = new User([
+                'email' => 'userchef' .  $i . '@gmail.com',
+                'roles' => ['ROLE_CHEF','ROLE_ADMIN'],
+                'nom' => 'user' . $i,
+            ]);
+            // fixer un password sans hasher
+            $passwordSansHash = "monpassword" . $i;
+            // obtenir le password hashé
+            $passwordHash = $this->passwordHasher->hashPassword(
+                $user,
+                $passwordSansHash
+            );
+            // incruster dans l'entité le password hashé
+            $user->setPassword($passwordHash);
             $manager->persist($user);
         }
         $manager->flush();
