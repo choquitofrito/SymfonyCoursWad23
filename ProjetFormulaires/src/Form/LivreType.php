@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 // types pour le form
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -26,8 +27,17 @@ class LivreType extends AbstractType
             ->add('datePublication', DateType::class)
             ->add('nombrePages', IntegerType::class)
             ->add('dateEdition', DateType::class)
-            // ->add('auteurs')
-        ;
+            ->add(
+                'lienImage',
+                FileType::class,
+                [
+                    'label' => "Selectionner l'image pour le Livre",
+                    'mapped' => false,
+                    'required' => false
+                ]
+            );
+
+        // ->add('auteurs')
     }
 
     public function configureOptions(OptionsResolver $resolver): void

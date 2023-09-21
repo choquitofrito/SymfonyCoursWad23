@@ -43,6 +43,9 @@ class Livre
     #[ORM\ManyToMany(targetEntity: Auteur::class, mappedBy: 'livres')]
     private Collection $auteurs;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lienImage = null;
+
 
     public function hydrate (array $vals){
         foreach ($vals as $cle => $valeur){
@@ -202,6 +205,18 @@ class Livre
         if ($this->auteurs->removeElement($auteur)) {
             $auteur->removeLivre($this);
         }
+
+        return $this;
+    }
+
+    public function getLienImage(): ?string
+    {
+        return $this->lienImage;
+    }
+
+    public function setLienImage(?string $lienImage): static
+    {
+        $this->lienImage = $lienImage;
 
         return $this;
     }
