@@ -170,5 +170,22 @@ class ExemplesFormulaireController extends AbstractController
         return $this->render("exemples_formulaire/livre_update.html.twig", $vars);
     }
 
+    // action pour tester le modèle en DQL
+    #[Route ("/obtenir/livres/dql")]
+    public function obtenirLivresDql (ManagerRegistry $doctrine){
+        $em = $doctrine->getManager();
+        $query = $em->createQuery ("SELECT l.titre FROM App\Entity\Livre l");
+        $resultat = $query->getResult();
+        dd($resultat);
+    }
 
+    // action pour tester le modèle en DQL
+    #[Route ("/obtenir/livres/exemplaires/dql")]
+    public function obtenirLivresExemplairesDql (ManagerRegistry $doctrine){
+        $em = $doctrine->getManager();
+        $query = $em->createQuery ("SELECT l,e FROM App\Entity\Livre l 
+                                    INNER JOIN l.exemplaires e");
+        $resultat = $query->getResult();
+        dd($resultat);
+    }
 }

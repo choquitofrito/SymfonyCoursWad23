@@ -26,12 +26,12 @@ class ExempleUploadController extends AbstractController
 
         if ($formLivre->isSubmitted()) {
 
-            $fichier = $formLivre['image']->getData();
+            $fichier = $formLivre['lienImage']->getData();
             $dossier = $this->getParameter('kernel.project_dir') . "/public/dossierUpload";
-
+            
             $nomFichier = md5(uniqid()) . "." . $fichier->guessExtension(); 
             $fichier->move ($dossier, $nomFichier);
-
+            
             $livre->setLienImage ($nomFichier);
         
             // stocker le livre dans la bd
@@ -43,6 +43,7 @@ class ExempleUploadController extends AbstractController
             return $this->redirectToRoute("livre_all");
         }
         // pas submit, on affiche le form
-        return $this->render('exemple_upload/upload_livre.html.twig');
+        $vars = ['formLivre' => $formLivre];
+        return $this->render('exemple_upload/upload_livre.html.twig', $vars);
     }
 }
