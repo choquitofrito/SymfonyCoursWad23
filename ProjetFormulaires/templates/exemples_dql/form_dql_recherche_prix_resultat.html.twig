@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<ul>
+{% for livre in listeLivres %}
+    <li>Titre: {{ livre.titre }}</li>
+    <li>Date Publication: {{ livre.datePublication.format("y-m-d") }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
