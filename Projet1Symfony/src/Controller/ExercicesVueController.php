@@ -87,5 +87,6 @@ class ExercicesVueController extends AbstractController
             'exercices_vue/exercice4.html.twig',
             $vars
         );
+        
     }
 }

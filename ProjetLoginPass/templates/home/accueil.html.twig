@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-Bienvenu au site!
+<br>Bienvenu au site <b>{{ app.user.email }}</b>
+{{ dump(app.user) }}
 
 {% endblock %}
