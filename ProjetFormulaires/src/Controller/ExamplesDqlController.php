@@ -74,16 +74,17 @@ class ExamplesDqlController extends AbstractController
 
     // action qui affiche et traite un formulaire de recherche de livres par prix
     #[Route('/form/dql/recherche/prix')]
-    public function formDqlRecherchePrix (Request $req, ManagerRegistry $doctrine){
+    public function formDqlRecherchePrix(Request $req, ManagerRegistry $doctrine)
+    {
 
         $rechercheLivrePrix = new RechercheLivrePrix();
 
-        $form = $this->createForm (RechercheLivrePrixType::class, $rechercheLivrePrix);
-        
+        $form = $this->createForm(RechercheLivrePrixType::class, $rechercheLivrePrix);
+
         $form->handleRequest($req);
 
         // si on vient d'un submit
-        if ($form->isSubmitted()){
+        if ($form->isSubmitted()) {
             // prendre les valeurs du form
             $minPrix = $rechercheLivrePrix->getMinPrix();
             $maxPrix = $rechercheLivrePrix->getMaxPrix();
@@ -92,21 +93,49 @@ class ExamplesDqlController extends AbstractController
             $em = $doctrine->getManager();
             $query = $em->createQuery("SELECT livre FROM App\Entity\Livre livre WHERE livre.prix > :minPrix 
                                         AND livre.prix < :maxPrix");
-            $query->setParameter ("minPrix", $minPrix);
-            $query->setParameter ("maxPrix", $maxPrix);
+            $query->setParameter("minPrix", $minPrix);
+            $query->setParameter("maxPrix", $maxPrix);
             $res = $query->getResult();
-            $vars = ['listeLivres'=> $res];
+            $vars = ['listeLivres' => $res];
             // dd($res); // charger la vue qui affiche le resultat
-            return $this->render ('/exemples_dql/form_dql_recherche_prix_resultat.html.twig', $vars);
-
+            return $this->render('/exemples_dql/form_dql_recherche_prix_resultat.html.twig', $vars);
         }
 
         $vars = ['formRecherchePrix' => $form];
-        return $this->render ('/exemples_dql/form_dql_recherche_prix.html.twig', $vars);
-
-
+        return $this->render('/exemples_dql/form_dql_recherche_prix.html.twig', $vars);
     }
-    
+
+
+    // obtention de tous les livres 
+    // avec leurs exemplaires
+    #[Route('/dql/exemple5')]
+    public function dqlExemple5(ManagerRegistry $doctrine)
+    {
+
+        $em = $doctrine->getManager();
+        $query = $em->createQuery("SELECT l,e FROM App\Entity\Livre l
+                                    INNER JOIN l.exemplaires e"); // on peut aussi utiliser BETWEEN
+
+        $res = $query->getResult();
+
+        dd($res);
+    }
+
+    // obtention des titres des Livres et 
+    // de l'état de chaque Livre (on aura un 
+    // array d'arrays!)
+    #[Route('/dql/exemple6')]
+    public function dqlExemple6(ManagerRegistry $doctrine)
+    {
+
+        $em = $doctrine->getManager();
+        $query = $em->createQuery("SELECT l.titre, e.etat 
+                                    FROM App\Entity\Livre l
+                                    INNER JOIN l.exemplaires e"); // on peut aussi utiliser BETWEEN
+
+        $res = $query->getResult();
+        dd($res);
+    }
 
 
 }

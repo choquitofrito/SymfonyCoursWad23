@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('vue1') }}
+{% endblock %}
+
+{% block body %}
+	Je suis la vue1 et j'ai mon propre script et css
+
+	<div class="card" style="width: 18rem;">
+		<img src="/images/chat.jpg" class="card-img-top" alt="...">
+		<div class="card-body">
+			<h5 class="card-title">Le gros chat</h5>
+			<p class="card-text">J'ai une forte tendence à me perdre</p>
+			<a href="lepath" class="btn btn-primary">Détail</a>
+		</div>
+	</div>
+
+{% endblock %}
